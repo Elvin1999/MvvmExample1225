@@ -1,0 +1,32 @@
+﻿<Window x:Class="MvvmExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MvvmExample" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800">
+    <StackPanel  Margin="25">
+        <ComboBox  ItemsSource="{Binding AllPrinters}"        
+                  DisplayMemberPath="Model"
+                  Name="myComboBox">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SelectedCommand}" 
+                                           CommandParameter="{Binding ElementName=myComboBox,Path=SelectedItem}"></i:InvokeCommandAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+
+        <Label FontSize="30">Model</Label>
+        <TextBlock Text="{Binding Printer.Model}" FontSize="26" FontWeight="ExtraBlack"></TextBlock>
+        <Label FontSize="30">Vendor</Label>
+        <TextBlock Text="{Binding Printer.Vendor}" FontSize="26" FontWeight="ExtraBlack"></TextBlock>
+        <Label FontSize="30">Color</Label>
+        <TextBlock Text="{Binding Printer.Color}" FontSize="26" FontWeight="ExtraBlack"></TextBlock>
+        <Button Command="{Binding EditCommand}" FontSize="26">Edit</Button>
+        <Button Command="{Binding AddPrinterCommand}" FontSize="26">Add New Printer</Button>
+        <StackPanel Orientation="Horizontal" Name="myStackPanel"></StackPanel>
+    </StackPanel>
+</Window>
